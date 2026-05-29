@@ -17,120 +17,131 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
     setMounted(true);
   }, []);
 
+  const logoSrc =
+    mounted && theme === "dark" ? "/images/darkMode_logo.svg" : "/images/logo.svg";
+
   return (
     <>
-      <Popover className="block tablet:hidden mt-5">
-        {({ open }) => (
-          <>
-            <div className="flex items-center justify-between p-2 laptop:p-0">
-              <h1
-                onClick={() => router.push("/")}
-                className="font-medium p-2 laptop:p-0 link"
-              >
-                {name}.
-              </h1>
-
-              <div className="flex items-center">
-                {data.darkMode && (
-                  <Button
-                    onClick={() =>
-                      setTheme(theme === "dark" ? "light" : "dark")
-                    }
-                  >
-                    <img
-                      className="h-6"
-                      src={`/images/${
-                        theme === "dark" ? "moon.svg" : "sun.svg"
-                      }`}
-                    ></img>
-                  </Button>
-                )}
-
-                <Popover.Button>
+      {/* Mobile Header */}
+      <div className="block tablet:hidden sticky top-3 z-10 mx-3 mt-3 rounded-2xl backdrop-blur-md bg-white/60 dark:bg-black/80 border border-gray-200/30 dark:border-white/10 dark:text-white shadow-sm">
+        <Popover>
+          {({ open }) => (
+            <>
+              <div className="flex items-center justify-between px-4 py-3">
+                <div
+                  className="flex items-center gap-2 cursor-pointer"
+                  onClick={() => router.push("/")}
+                >
                   <img
-                    className="h-5"
-                    src={`/images/${
-                      !open
-                        ? theme === "dark"
-                          ? "menu-white.svg"
-                          : "menu.svg"
-                        : theme === "light"
-                        ? "cancel.svg"
-                        : "cancel-white.svg"
-                    }`}
-                  ></img>
-                </Popover.Button>
-              </div>
-            </div>
-            <Popover.Panel
-              className={`absolute right-0 z-10 w-11/12 p-4 ${
-                theme === "dark" ? "bg-slate-800" : "bg-white"
-              } shadow-md rounded-md`}
-            >
-              {!isBlog ? (
-                <div className="grid grid-cols-1">
-                  <Button onClick={handleWorkScroll}>Work</Button>
-                  <Button onClick={handleAboutScroll}>About</Button>
-                  {showBlog && (
-                    <Button onClick={() => router.push("/blog")}>Blog</Button>
-                  )}
-                  {showResume && (
+                    className="h-8 logo-glow"
+                    src={logoSrc}
+                    alt="Logo"
+                  />
+                  <span className="font-medium text-sm tablet:text-base">
+                    {name}.
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {data.darkMode && (
                     <Button
                       onClick={() =>
-                        window.open("mailto:hello@chetanverma.com")
+                        setTheme(theme === "dark" ? "light" : "dark")
                       }
                     >
-                      Resume
+                      <img
+                        className="h-6"
+                        src={`/images/${
+                          theme === "dark" ? "moon.svg" : "sun.svg"
+                        }`}
+                      />
                     </Button>
                   )}
 
-                  <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
-                  >
-                    Contact
-                  </Button>
+                  <Popover.Button>
+                    <img
+                      className="h-5"
+                      src={`/images/${
+                        !open
+                          ? theme === "dark"
+                            ? "menu-white.svg"
+                            : "menu.svg"
+                          : theme === "light"
+                          ? "cancel.svg"
+                          : "cancel-white.svg"
+                      }`}
+                    />
+                  </Popover.Button>
                 </div>
-              ) : (
-                <div className="grid grid-cols-1">
-                  <Button onClick={() => router.push("/")} classes="first:ml-1">
-                    Home
-                  </Button>
-                  {showBlog && (
-                    <Button onClick={() => router.push("/blog")}>Blog</Button>
-                  )}
-                  {showResume && (
+              </div>
+
+              <Popover.Panel
+                className={`absolute left-0 right-0 z-10 px-4 py-2 rounded-b-2xl ${
+                  theme === "dark"
+                    ? "bg-black/80 backdrop-blur-md"
+                    : "bg-white/80 backdrop-blur-md"
+                } border-t border-gray-200/30 dark:border-white/10 shadow-lg`}
+              >
+                {!isBlog ? (
+                  <div className="grid grid-cols-1 py-2">
+                    <Button onClick={handleWorkScroll}>Work</Button>
+                    <Button onClick={handleAboutScroll}>About</Button>
+                    {showBlog && (
+                      <Button onClick={() => router.push("/blog")}>Blog</Button>
+                    )}
+                    {showResume && (
+                      <Button onClick={() => router.push("/resume")}>
+                        Resume
+                      </Button>
+                    )}
                     <Button
-                      onClick={() => router.push("/resume")}
-                      classes="first:ml-1"
+                      onClick={() => window.open("mailto:hello@chetanverma.com")}
                     >
-                      Resume
+                      Contact
                     </Button>
-                  )}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 py-2">
+                    <Button onClick={() => router.push("/")}>Home</Button>
+                    {showBlog && (
+                      <Button onClick={() => router.push("/blog")}>Blog</Button>
+                    )}
+                    {showResume && (
+                      <Button onClick={() => router.push("/resume")}>
+                        Resume
+                      </Button>
+                    )}
+                    <Button
+                      onClick={() => window.open("mailto:hello@chetanverma.com")}
+                    >
+                      Contact
+                    </Button>
+                  </div>
+                )}
+              </Popover.Panel>
+            </>
+          )}
+        </Popover>
+      </div>
 
-                  <Button
-                    onClick={() => window.open("mailto:hello@chetanverma.com")}
-                  >
-                    Contact
-                  </Button>
-                </div>
-              )}
-            </Popover.Panel>
-          </>
-        )}
-      </Popover>
-      <div
-        className={`mt-10 hidden flex-row items-center justify-between sticky ${
-          theme === "light" && "bg-white"
-        } dark:text-white top-0 z-10 tablet:flex`}
-      >
-        <h1
+      {/* Desktop Header */}
+      <div className="hidden tablet:flex flex-row items-center justify-between sticky top-4 z-10 px-5 py-2 mx-4 mt-4 rounded-2xl backdrop-blur-md bg-white/60 dark:bg-black/80 border border-gray-200/30 dark:border-white/10 dark:text-white shadow-sm">
+        <div
+          className="flex items-center gap-2 cursor-pointer"
           onClick={() => router.push("/")}
-          className="font-medium cursor-pointer mob:p-2 laptop:p-0"
         >
-          {name}.
-        </h1>
+          <img
+            className="h-24 logo-glow"
+            src={logoSrc}
+            alt="Logo"
+          />
+          <span className="font-medium text-base">
+            {name}.
+          </span>
+        </div>
+
         {!isBlog ? (
-          <div className="flex">
+          <div className="flex items-center">
             <Button onClick={handleWorkScroll}>Work</Button>
             <Button onClick={handleAboutScroll}>About</Button>
             {showBlog && (
@@ -144,7 +155,6 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 Resume
               </Button>
             )}
-
             <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
               Contact
             </Button>
@@ -155,12 +165,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 <img
                   className="h-6"
                   src={`/images/${theme === "dark" ? "moon.svg" : "sun.svg"}`}
-                ></img>
+                />
               </Button>
             )}
           </div>
         ) : (
-          <div className="flex">
+          <div className="flex items-center">
             <Button onClick={() => router.push("/")}>Home</Button>
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
@@ -173,11 +183,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 Resume
               </Button>
             )}
-
             <Button onClick={() => window.open("mailto:hello@chetanverma.com")}>
               Contact
             </Button>
-
             {mounted && theme && data.darkMode && (
               <Button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
@@ -185,7 +193,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 <img
                   className="h-6"
                   src={`/images/${theme === "dark" ? "moon.svg" : "sun.svg"}`}
-                ></img>
+                />
               </Button>
             )}
           </div>

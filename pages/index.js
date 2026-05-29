@@ -2,7 +2,7 @@ import { useRef } from "react";
 import Header from "../components/Header";
 import ServiceCard from "../components/ServiceCard";
 import Socials from "../components/Socials";
-import WorkCard from "../components/WorkCard";
+import CategoryCard from "../components/CategoryCard";
 import { useIsomorphicLayoutEffect } from "../utils";
 import { stagger } from "../animations";
 import Footer from "../components/Footer";
@@ -93,17 +93,18 @@ export default function Home() {
 
           <Socials className="mt-2 laptop:mt-5" />
         </div>
-        <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
+        <div id="work" className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
           <h1 className="text-2xl text-bold">Work.</h1>
 
-          <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
-            {data.projects.map((project) => (
-              <WorkCard
-                key={project.id}
-                img={project.imageSrc}
-                name={project.title}
-                description={project.description}
-                onClick={() => window.open(project.url)}
+          {/* 4 kategori kartı — her biri kendi sayfasına link veriyor */}
+          <div className="mt-5 laptop:mt-10 grid grid-cols-2 laptop:grid-cols-4 gap-4">
+            {data.categories.map((cat) => (
+              <CategoryCard
+                key={cat.slug}
+                slug={cat.slug}
+                title={cat.title}
+                // Bu kategoriyle eşleşen projeleri filtrele
+                projects={data.projects.filter((p) => p.category === cat.slug)}
               />
             ))}
           </div>
@@ -129,7 +130,7 @@ export default function Home() {
             </Link>
           </div>
         )}
-        <div className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
+        <div id="about" className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
           <h1 className="tablet:m-10 text-2xl text-bold">About.</h1>
           <p className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
             {data.aboutpara}

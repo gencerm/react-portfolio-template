@@ -1,34 +1,33 @@
-import React from "react";
-import Socials from "../Socials";
-import Link from "next/link";
-import Button from "../Button";
+import React, { useState } from "react";
+import Button from "../Button"; // Button bileşeninin yolu
+import ContactModal from "../ContactModal"; // ContactModal bileşeninin yolu
+import data from "../../data/portfolio.json"; // portfolio.json dosyasının yolu
 
-const Footer = ({}) => {
+const Footer = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <>
-      <div className="mt-5 laptop:mt-40 p-2 laptop:p-0">
-        <div>
-          <h1 className="text-2xl text-bold">Contact.</h1>
-          <div className="mt-10">
-            <h1 className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl text-bold">
-              LET&apos;S WORK
-            </h1>
-            <h1 className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl text-bold">
-              TOGETHER
-            </h1>
-            <Button type="primary">Schedule a call</Button>
-            <div className="mt-10">
-              <Socials />
-            </div>
+      <div className="mt-10 laptop:mt-40 p-2 laptop:p-0">
+        <h1 className="tablet:m-10 text-2xl text-bold">Contact.</h1>
+        <div className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
+          <p>Ready to work together? Let's connect!</p>
+          <div className="mt-5">
+            <Button type="primary" onClick={() => setIsContactModalOpen(true)}>
+              Get in Touch
+            </Button>
           </div>
         </div>
+        <div className="mt-10">
+          <p className="text-center text-sm opacity-50">
+            © {new Date().getFullYear()} {data.name}. All rights reserved.
+          </p>
+        </div>
       </div>
-      <h1 className="text-sm text-bold mt-2 laptop:mt-10 p-2 laptop:p-0">
-        Made With ❤ by{" "}
-        <Link href="http://www.chetanverma.com">
-          <a className="underline underline-offset-1">Chetan Verma</a>
-        </Link>
-      </h1>
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </>
   );
 };

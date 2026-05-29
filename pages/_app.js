@@ -1,10 +1,38 @@
 import "../styles/globals.css";
+import { useState, useEffect } from "react";
 import { ThemeProvider } from "next-themes";
+import { useRouter } from "next/router";
+import Head from "next/head";
+import SplashScreen from "../components/SplashScreen";
 
 const App = ({ Component, pageProps }) => {
+  const router = useRouter();
+
+  // Sunucu her zaman false render eder (window yok).
+  // useEffect yalnızca client'ta, hydration bittikten sonra çalışır —
+  // o zaman sessionStorage'a bakıp splash'i açarız.
+  const [showSplash, setShowSplash] = useState(false);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("splash-seen")) {
+      sessionStorage.setItem("splash-seen", "1");
+      setShowSplash(true);
+    }
+  }, []);
+
   return (
     <ThemeProvider>
-      <Component {...pageProps} />
+      <Head>
+        <link rel="icon" href="/images/darkMode_logo.svg" type="image/svg+xml" />
+      </Head>
+
+      {showSplash && (
+        <SplashScreen onDone={() => setShowSplash(false)} />
+      )}
+
+      <div key={router.asPath} className="page-enter">
+        <Component {...pageProps} />
+      </div>
     </ThemeProvider>
   );
 };

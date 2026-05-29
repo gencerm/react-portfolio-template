@@ -10,11 +10,22 @@ const WorkCard = ({ img, name, description, onClick }) => {
         className="relative rounded-lg overflow-hidden transition-all ease-out duration-300 h-48 mob:h-auto"
         style={{ height: "600px" }}
       >
-        <img
-          alt={name}
-          className="h-full w-full object-cover hover:scale-110 transition-all ease-out duration-300"
-          src={img}
-        ></img>
+        {img && img.endsWith(".mp4") ? (
+          <video
+            src={img}
+            className="h-full w-full object-cover hover:scale-110 transition-all ease-out duration-300"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        ) : (
+          <img
+            alt={name}
+            className="h-full w-full object-cover hover:scale-110 transition-all ease-out duration-300"
+            src={img}
+          />
+        )}
       </div>
       <h1 className="mt-5 text-3xl font-medium">
         {name ? name : "Project Name"}
