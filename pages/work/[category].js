@@ -68,7 +68,7 @@ export default function CategoryPage({ category, projects }) {
                     // URL varsa dışarı aç, yoksa lightbox'ı aç
                     onClick={() =>
                       project.url
-                        ? window.open(project.url)
+                        ? window.open(project.url, "_blank", "noopener,noreferrer")
                         : setLightboxProject(project)
                     }
                   />

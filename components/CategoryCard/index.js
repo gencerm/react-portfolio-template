@@ -23,6 +23,9 @@ const CategoryCard = ({ slug, title, projects }) => {
     <div
       className="overflow-hidden rounded-lg p-2 laptop:p-4 cursor-pointer link"
       onClick={() => router.push(`/work/${slug}`)}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") router.push(`/work/${slug}`); }}
     >
       <div className="relative rounded-lg overflow-hidden h-40 laptop:h-52">
         {previewProjects.length === 0 ? (

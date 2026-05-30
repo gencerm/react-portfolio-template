@@ -35,6 +35,9 @@ const Lightbox = ({ project, onClose }) => {
       <div
         className="relative z-10 flex flex-col items-center animate-page-in"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={project.title}
       >
         {/* Kapat butonu */}
         <button

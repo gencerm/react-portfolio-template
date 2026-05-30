@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="mt-10 laptop:mt-40 p-2 laptop:p-0">
         <h1 className="tablet:m-10 text-2xl text-bold">Contact.</h1>
         <div className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
-          <p>Ready to work together? Let's connect!</p>
+          <p>{"Ready to work together? Let's connect!"}</p>
           <div className="mt-5">
             <Button type="primary" onClick={() => setIsContactModalOpen(true)}>
               Get in Touch
@@ -22,6 +22,9 @@ const Footer = () => {
           <p className="text-center text-sm opacity-50">
             © {new Date().getFullYear()} {data.name}. All rights reserved.
           </p>
+           <a href="https://github.com/chetanverma16/react-portfolio-template" className="text-center text-xs opacity-50 align-middle block mt-1" target="_blank" rel="noopener noreferrer">
+            {"Inspired by Chetan Verma's React Portfolio Template."}
+          </a>
         </div>
       </div>
       <ContactModal

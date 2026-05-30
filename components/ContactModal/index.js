@@ -32,6 +32,9 @@ const ContactModal = ({ isOpen, onClose }) => {
       <div
         className="relative z-10 w-full max-w-md bg-white dark:bg-zinc-900 rounded-2xl p-8 shadow-2xl animate-page-in"
         onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Get in Touch"
       >
         <button
           onClick={onClose}
@@ -43,7 +46,7 @@ const ContactModal = ({ isOpen, onClose }) => {
 
         <h2 className="text-2xl font-medium mb-2">Get in Touch</h2>
         <p className="opacity-50 text-sm mb-6">
-          Send an email and I'll get back to you as soon as possible.
+          {"Send an email and I'll get back to you as soon as possible."}
         </p>
 
         <a

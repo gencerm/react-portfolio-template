@@ -24,9 +24,11 @@ export default function Home() {
   const textFour = useRef();
 
   // Handling Scroll
+  const NAV_OFFSET = 120;
+
   const handleWorkScroll = () => {
     window.scrollTo({
-      top: workRef.current.offsetTop,
+      top: workRef.current.offsetTop - NAV_OFFSET,
       left: 0,
       behavior: "smooth",
     });
@@ -34,7 +36,7 @@ export default function Home() {
 
   const handleAboutScroll = () => {
     window.scrollTo({
-      top: aboutRef.current.offsetTop,
+      top: aboutRef.current.offsetTop - NAV_OFFSET,
       left: 0,
       behavior: "smooth",
     });

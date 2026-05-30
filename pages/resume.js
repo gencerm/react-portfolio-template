@@ -7,9 +7,8 @@ import Socials from "../components/Socials";
 import Button from "../components/Button";
 import { useTheme } from "next-themes";
 // Data
-import { name, showResume } from "../data/portfolio.json";
-import { resume } from "../data/portfolio.json";
 import data from "../data/portfolio.json";
+const { name, showResume, resume } = data;
 
 const Resume = () => {
   const router = useRouter();
@@ -53,6 +52,7 @@ const Resume = () => {
               <div className="mt-2">
                 <Socials />
               </div>
+              {resume.showExperiences && (
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Experience</h1>
 
@@ -68,6 +68,7 @@ const Resume = () => {
                   )
                 )}
               </div>
+              )}
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Education</h1>
                 <div className="mt-2">

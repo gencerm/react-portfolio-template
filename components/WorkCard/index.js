@@ -5,10 +5,12 @@ const WorkCard = ({ img, name, description, onClick }) => {
     <div
       className="overflow-hidden rounded-lg p-2 laptop:p-4 first:ml-0 link"
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") onClick?.(); }}
     >
       <div
-        className="relative rounded-lg overflow-hidden transition-all ease-out duration-300 h-48 mob:h-auto"
-        style={{ height: "600px" }}
+        className="relative rounded-lg overflow-hidden transition-all ease-out duration-300 h-48 mob:h-64 laptop:h-[600px]"
       >
         {img && img.endsWith(".mp4") ? (
           <video

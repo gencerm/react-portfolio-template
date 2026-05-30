@@ -87,6 +87,9 @@ const Blog = ({ posts }) => {
                     className="cursor-pointer relative"
                     key={post.slug}
                     onClick={() => Router.push(`/blog/${post.slug}`)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") Router.push(`/blog/${post.slug}`); }}
                   >
                     <img
                       className="w-full h-60 rounded-lg shadow-lg object-cover"

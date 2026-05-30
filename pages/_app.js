@@ -23,7 +23,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <ThemeProvider>
       <Head>
-        <link rel="icon" href="/images/darkMode_logo.svg" type="image/svg+xml" />
+        <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
       </Head>
 
       {showSplash && (
