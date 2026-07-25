@@ -5,11 +5,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-yarn dev        # Start development server (localhost:3000)
-yarn build      # Production build
-yarn start      # Start production server (run after build)
-yarn lint       # ESLint check
+npm run dev     # Start development server (localhost:3000)
+npm run build   # Production build
+npm start       # Start production server (run after build)
+npm run lint    # ESLint check
 ```
+
+Node 18 LTS required (see `.nvmrc`) — Next.js 12 crashes on newer Node majors.
 
 No test suite is configured in this project.
 

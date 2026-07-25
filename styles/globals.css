@@ -108,6 +108,22 @@ body {
   animation: pageEnter 0.4s ease-out;
 }
 
+/* ── Custom cursor ─────────────────────────────────── */
+/* Sadece fare gibi hassas işaretçisi olan cihazlarda göster (dokunmatikte gizli) */
+.custom-cursor-wrapper {
+  display: none;
+}
+@media (any-pointer: fine) {
+  .custom-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: block;
+    pointer-events: none;
+    z-index: 100000;
+  }
+}
+
 .gradient-shadow:hover::after {
   content: "";
   z-index: -1;
