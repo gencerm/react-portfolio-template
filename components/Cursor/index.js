@@ -11,12 +11,17 @@ const BASE_OPACITY = 0.5;
 
 const lerp = (start, end, amount) => start + (end - start) * amount;
 
+// Modül seviyesinde tutulur: sayfa geçişlerinde (SPA navigasyonu) Cursor
+// yeniden mount olsa da son bilinen fare konumu kaybolmaz, cursor (0,0)'a
+// sıçrayıp donmaz.
+const lastMouse = { x: -100, y: -100 };
+
 const Cursor = () => {
   const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const dotRef = useRef(null);
-  const mouse = useRef({ x: 0, y: 0 });
-  const rendered = useRef({ x: 0, y: 0, scale: 1 });
+  const mouse = useRef({ x: lastMouse.x, y: lastMouse.y });
+  const rendered = useRef({ x: lastMouse.x, y: lastMouse.y, scale: 1 });
   const hovering = useRef(false);
 
   useEffect(() => {
@@ -29,8 +34,8 @@ const Cursor = () => {
     if (!el) return undefined;
 
     const handleMouseMove = (e) => {
-      mouse.current.x = e.clientX;
-      mouse.current.y = e.clientY;
+      mouse.current.x = lastMouse.x = e.clientX;
+      mouse.current.y = lastMouse.y = e.clientY;
     };
     const handleEnter = () => {
       hovering.current = true;
