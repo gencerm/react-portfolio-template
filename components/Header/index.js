@@ -3,12 +3,15 @@ import { useTheme } from "next-themes";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Button from "../Button";
+import LanguageToggle from "../LanguageToggle";
+import { useLanguage } from "../../context/LanguageContext";
 // Local Data
 import data from "../../data/portfolio.json";
 
 const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
   const router = useRouter();
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   const { name, showBlog, showBio } = data;
@@ -43,6 +46,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 </div>
 
                 <div className="flex items-center gap-2">
+                  <LanguageToggle />
                   {data.darkMode && (
                     <Button
                       onClick={() =>
@@ -84,37 +88,37 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
               >
                 {!isBlog ? (
                   <div className="grid grid-cols-1 py-2">
-                    <Button onClick={handleWorkScroll}>Work</Button>
-                    <Button onClick={handleAboutScroll}>About</Button>
+                    <Button onClick={handleWorkScroll}>{t("nav.work")}</Button>
+                    <Button onClick={handleAboutScroll}>{t("nav.about")}</Button>
                     {showBlog && (
-                      <Button onClick={() => router.push("/blog")}>Blog</Button>
+                      <Button onClick={() => router.push("/blog")}>{t("nav.blog")}</Button>
                     )}
                     {showBio && (
                       <Button onClick={() => router.push("/bio")}>
-                        Bio
+                        {t("nav.bio")}
                       </Button>
                     )}
                     <Button
                       onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}
                     >
-                      Contact
+                      {t("nav.contact")}
                     </Button>
                   </div>
                 ) : (
                   <div className="grid grid-cols-1 py-2">
-                    <Button onClick={() => router.push("/")}>Home</Button>
+                    <Button onClick={() => router.push("/")}>{t("nav.home")}</Button>
                     {showBlog && (
-                      <Button onClick={() => router.push("/blog")}>Blog</Button>
+                      <Button onClick={() => router.push("/blog")}>{t("nav.blog")}</Button>
                     )}
                     {showBio && (
                       <Button onClick={() => router.push("/bio")}>
-                        Bio
+                        {t("nav.bio")}
                       </Button>
                     )}
                     <Button
                       onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}
                     >
-                      Contact
+                      {t("nav.contact")}
                     </Button>
                   </div>
                 )}
@@ -142,21 +146,21 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
 
         {!isBlog ? (
           <div className="flex items-center">
-            <Button onClick={handleWorkScroll}>Work</Button>
-            <Button onClick={handleAboutScroll}>About</Button>
+            <Button onClick={handleWorkScroll}>{t("nav.work")}</Button>
+            <Button onClick={handleAboutScroll}>{t("nav.about")}</Button>
             {showBlog && (
-              <Button onClick={() => router.push("/blog")}>Blog</Button>
+              <Button onClick={() => router.push("/blog")}>{t("nav.blog")}</Button>
             )}
             {showBio && (
               <Button
                 onClick={() => router.push("/bio")}
                 classes="first:ml-1"
               >
-                Bio
+                {t("nav.bio")}
               </Button>
             )}
             <Button onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}>
-              Contact
+              {t("nav.contact")}
             </Button>
             {mounted && theme && data.darkMode && (
               <Button
@@ -168,23 +172,24 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 />
               </Button>
             )}
+            <LanguageToggle />
           </div>
         ) : (
           <div className="flex items-center">
-            <Button onClick={() => router.push("/")}>Home</Button>
+            <Button onClick={() => router.push("/")}>{t("nav.home")}</Button>
             {showBlog && (
-              <Button onClick={() => router.push("/blog")}>Blog</Button>
+              <Button onClick={() => router.push("/blog")}>{t("nav.blog")}</Button>
             )}
             {showBio && (
               <Button
                 onClick={() => router.push("/bio")}
                 classes="first:ml-1"
               >
-                Bio
+                {t("nav.bio")}
               </Button>
             )}
             <Button onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}>
-              Contact
+              {t("nav.contact")}
             </Button>
             {mounted && theme && data.darkMode && (
               <Button
@@ -196,6 +201,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                 />
               </Button>
             )}
+            <LanguageToggle />
           </div>
         )}
       </div>

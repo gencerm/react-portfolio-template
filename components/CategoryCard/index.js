@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useLanguage } from "../../context/LanguageContext";
 
 const CategoryCard = ({ slug, title, projects }) => {
   const router = useRouter();
+  const { lang, t } = useLanguage();
 
   // mp4 dosyalarını önizlemeden hariç tut — tarayıcı video thumbnail gösteremiyor
   const previewProjects = projects.filter(
@@ -30,14 +32,14 @@ const CategoryCard = ({ slug, title, projects }) => {
       <div className="relative rounded-lg overflow-hidden h-40 laptop:h-52">
         {previewProjects.length === 0 ? (
           <div className="h-full w-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center">
-            <span className="opacity-30 text-sm">No content yet</span>
+            <span className="opacity-30 text-sm">{t("categoryCard.noContentYet")}</span>
           </div>
         ) : (
           previewProjects.map((project, index) => (
             <img
               key={project.id}
               src={project.imageSrc}
-              alt={project.title}
+              alt={project.title[lang]}
               className="absolute inset-0 h-full w-full object-cover transition-opacity duration-700 ease-in-out"
               style={{ opacity: index === activeIndex ? 1 : 0 }}
             />
@@ -59,7 +61,7 @@ const CategoryCard = ({ slug, title, projects }) => {
       </div>
 
       <h1 className="mt-5 text-3xl font-medium">{title}</h1>
-      <h2 className="text-xl opacity-50">{projects.length} works</h2>
+      <h2 className="text-xl opacity-50">{t("worksCount", { n: projects.length })}</h2>
     </div>
   );
 };

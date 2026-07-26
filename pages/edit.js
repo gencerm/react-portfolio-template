@@ -42,8 +42,8 @@ const Edit = () => {
         ...data.projects,
         {
           id: uuidv4(),
-          title: "New Project",
-          description: "Web Design & Development",
+          title: { tr: "Yeni Proje", en: "New Project" },
+          description: { tr: "Web Tasarım & Geliştirme", en: "Web Design & Development" },
           imageSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
 
@@ -74,9 +74,11 @@ const Edit = () => {
         ...data.services,
         {
           id: uuidv4(),
-          title: "New Service",
-          description:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+          title: { tr: "Yeni Hizmet", en: "New Service" },
+          description: {
+            tr: "Hizmet açıklamasını buraya yazın.",
+            en: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. ",
+          },
         },
       ],
     });
@@ -144,6 +146,36 @@ const Edit = () => {
       ...data,
       bio: { ...data.bio, experiences: copyExperiences },
     });
+  };
+
+  const editEducation = (index, editEntry) => {
+    let copyEducation = data.bio.education;
+    copyEducation[index] = { ...editEntry };
+    setData({ ...data, bio: { ...data.bio, education: copyEducation } });
+  };
+
+  const addEducation = () => {
+    setData({
+      ...data,
+      bio: {
+        ...data.bio,
+        education: [
+          ...data.bio.education,
+          {
+            id: uuidv4(),
+            universityName: { tr: "Yeni Okul", en: "New School" },
+            universityDate: "",
+            universityPara: { tr: "", en: "" },
+          },
+        ],
+      },
+    });
+  };
+
+  const deleteEducation = (id) => {
+    const copyEducation = data.bio.education;
+    copyEducation = copyEducation.filter((edu) => edu.id !== id);
+    setData({ ...data, bio: { ...data.bio, education: copyEducation } });
   };
 
   return (
@@ -217,9 +249,12 @@ const Edit = () => {
                 Header Tagline One
               </label>
               <input
-                value={data.headerTaglineOne}
+                value={data.headerTaglineOne.tr}
                 onChange={(e) =>
-                  setData({ ...data, headerTaglineOne: e.target.value })
+                  setData({
+                    ...data,
+                    headerTaglineOne: { ...data.headerTaglineOne, tr: e.target.value },
+                  })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
                 type="text"
@@ -230,9 +265,12 @@ const Edit = () => {
                 Header Tagline Two
               </label>
               <input
-                value={data.headerTaglineTwo}
+                value={data.headerTaglineTwo.tr}
                 onChange={(e) =>
-                  setData({ ...data, headerTaglineTwo: e.target.value })
+                  setData({
+                    ...data,
+                    headerTaglineTwo: { ...data.headerTaglineTwo, tr: e.target.value },
+                  })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
                 type="text"
@@ -243,9 +281,12 @@ const Edit = () => {
                 Header Tagline Three
               </label>
               <input
-                value={data.headerTaglineThree}
+                value={data.headerTaglineThree.tr}
                 onChange={(e) =>
-                  setData({ ...data, headerTaglineThree: e.target.value })
+                  setData({
+                    ...data,
+                    headerTaglineThree: { ...data.headerTaglineThree, tr: e.target.value },
+                  })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
                 type="text"
@@ -256,9 +297,12 @@ const Edit = () => {
                 Header Tagline Four
               </label>
               <input
-                value={data.headerTaglineFour}
+                value={data.headerTaglineFour.tr}
                 onChange={(e) =>
-                  setData({ ...data, headerTaglineFour: e.target.value })
+                  setData({
+                    ...data,
+                    headerTaglineFour: { ...data.headerTaglineFour, tr: e.target.value },
+                  })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
                 type="text"
@@ -349,7 +393,7 @@ const Edit = () => {
               {data.projects.map((project, index) => (
                 <div className="mt-10" key={project.id}>
                   <div className="flex items-center justify-between">
-                    <h1 className="text-2xl">{project.title}</h1>
+                    <h1 className="text-2xl">{project.title.tr}</h1>
                     <Button
                       onClick={() => deleteProject(project.id)}
                       type="primary"
@@ -361,11 +405,11 @@ const Edit = () => {
                   <div className="flex items-center mt-5">
                     <label className="w-1/5 text-lg opacity-50">Title</label>
                     <input
-                      value={project.title}
+                      value={project.title.tr}
                       onChange={(e) =>
                         editProjects(index, {
                           ...project,
-                          title: e.target.value,
+                          title: { ...project.title, tr: e.target.value },
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -377,11 +421,11 @@ const Edit = () => {
                       Description
                     </label>
                     <input
-                      value={project.description}
+                      value={project.description.tr}
                       onChange={(e) =>
                         editProjects(index, {
                           ...project,
-                          description: e.target.value,
+                          description: { ...project.description, tr: e.target.value },
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -437,7 +481,7 @@ const Edit = () => {
               {data.services.map((service, index) => (
                 <div key={service.id}>
                   <div className="flex items-center justify-between">
-                    <h1 className="text-2xl">{service.title}</h1>
+                    <h1 className="text-2xl">{service.title.tr}</h1>
                     <Button
                       onClick={() => deleteService(service.id)}
                       type="primary"
@@ -448,11 +492,11 @@ const Edit = () => {
                   <div className="flex items-center mt-5">
                     <label className="w-1/5 text-lg opacity-50">Title</label>
                     <input
-                      value={service.title}
+                      value={service.title.tr}
                       onChange={(e) =>
                         editServices(index, {
                           ...service,
-                          title: e.target.value,
+                          title: { ...service.title, tr: e.target.value },
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -464,11 +508,11 @@ const Edit = () => {
                       Description
                     </label>
                     <textarea
-                      value={service.description}
+                      value={service.description.tr}
                       onChange={(e) =>
                         editServices(index, {
                           ...service,
-                          description: e.target.value,
+                          description: { ...service.description, tr: e.target.value },
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -490,8 +534,10 @@ const Edit = () => {
             <h1 className="text-2xl">About</h1>
             <textarea
               className="w-full h-96 mt-10 p-2 rounded-md shadow-md border"
-              value={data.aboutpara}
-              onChange={(e) => setData({ ...data, aboutpara: e.target.value })}
+              value={data.aboutpara.tr}
+              onChange={(e) =>
+                setData({ ...data, aboutpara: { ...data.aboutpara, tr: e.target.value } })
+              }
             ></textarea>
           </div>
         )}
@@ -554,11 +600,11 @@ const Edit = () => {
             <div className="mt-5 flex items-center">
               <label className="w-1/5 text-sx opacity-50">Tagline</label>
               <input
-                value={data.bio.tagline}
+                value={data.bio.tagline.tr}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    bio: { ...data.bio, tagline: e.target.value },
+                    bio: { ...data.bio, tagline: { ...data.bio.tagline, tr: e.target.value } },
                   })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -568,11 +614,14 @@ const Edit = () => {
             <div className="flex items-center mt-5">
               <label className="w-1/5 text-lg opacity-50">Description</label>
               <textarea
-                value={data.bio.description}
+                value={data.bio.description.tr}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    bio: { ...data.bio, description: e.target.value },
+                    bio: {
+                      ...data.bio,
+                      description: { ...data.bio.description, tr: e.target.value },
+                    },
                   })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -664,65 +713,62 @@ const Edit = () => {
             <hr className="my-10"></hr>
             <div className="mt-10">
               <h1>Education</h1>
-              <div className="flex items-center mt-5">
-                <label className="w-1/5 text-lg opacity-50">Name</label>
-                <input
-                  value={data.bio.education.universityName}
-                  onChange={(e) =>
-                    setData({
-                      ...data,
-                      bio: {
-                        ...data.bio,
-                        education: {
-                          ...data.bio.education,
-                          universityName: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                  type="text"
-                ></input>
-              </div>
-              <div className="flex items-center mt-5">
-                <label className="w-1/5 text-lg opacity-50">Dates</label>
-                <input
-                  value={data.bio.education.universityDate}
-                  onChange={(e) =>
-                    setData({
-                      ...data,
-                      bio: {
-                        ...data.bio,
-                        education: {
-                          ...data.bio.education,
-                          universityDate: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                  type="text"
-                ></input>
-              </div>
-              <div className="flex items-center mt-5">
-                <label className="w-1/5 text-lg opacity-50">Detail</label>
-                <input
-                  value={data.bio.education.universityPara}
-                  onChange={(e) =>
-                    setData({
-                      ...data,
-                      bio: {
-                        ...data.bio,
-                        education: {
-                          ...data.bio.education,
-                          universityPara: e.target.value,
-                        },
-                      },
-                    })
-                  }
-                  className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                  type="text"
-                ></input>
+              {data.bio.education.map((edu, index) => (
+                <div className="mt-5" key={edu.id}>
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl">{edu.universityName.tr}</h2>
+                    <Button
+                      onClick={() => deleteEducation(edu.id)}
+                      type="primary"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Name</label>
+                    <input
+                      value={edu.universityName.tr}
+                      onChange={(e) =>
+                        editEducation(index, {
+                          ...edu,
+                          universityName: { ...edu.universityName, tr: e.target.value },
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Dates</label>
+                    <input
+                      value={edu.universityDate}
+                      onChange={(e) =>
+                        editEducation(index, { ...edu, universityDate: e.target.value })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Detail</label>
+                    <input
+                      value={edu.universityPara.tr}
+                      onChange={(e) =>
+                        editEducation(index, {
+                          ...edu,
+                          universityPara: { ...edu.universityPara, tr: e.target.value },
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                </div>
+              ))}
+              <div className="my-10">
+                <Button onClick={addEducation} type="primary">
+                  Add Education +
+                </Button>
               </div>
             </div>
             <hr className="my-10"></hr>
@@ -788,7 +834,7 @@ const Edit = () => {
               <div className="flex">
                 <label className="w-1/5 text-lg opacity-50">Expertise</label>
                 <div className="w-4/5 ml-10 flex flex-col">
-                  {data.bio.expertise.map((framework, index) => (
+                  {data.bio.expertise.tr.map((framework, index) => (
                     <div key={index} className="flex">
                       <input
                         value={framework}
@@ -797,11 +843,14 @@ const Edit = () => {
                             ...data,
                             bio: {
                               ...data.bio,
-                              expertise: [
-                                ...data.bio.expertise.slice(0, index),
-                                e.target.value,
-                                ...data.bio.expertise.slice(index + 1),
-                              ],
+                              expertise: {
+                                ...data.bio.expertise,
+                                tr: [
+                                  ...data.bio.expertise.tr.slice(0, index),
+                                  e.target.value,
+                                  ...data.bio.expertise.tr.slice(index + 1),
+                                ],
+                              },
                             },
                           });
                         }}
@@ -814,9 +863,12 @@ const Edit = () => {
                             ...data,
                             bio: {
                               ...data.bio,
-                              expertise: data.bio.expertise.filter(
-                                (value, i) => index !== i
-                              ),
+                              expertise: {
+                                ...data.bio.expertise,
+                                tr: data.bio.expertise.tr.filter(
+                                  (value, i) => index !== i
+                                ),
+                              },
                             },
                           })
                         }
@@ -831,7 +883,10 @@ const Edit = () => {
                         ...data,
                         bio: {
                           ...data.bio,
-                          expertise: [...data.bio.expertise, "Added"],
+                          expertise: {
+                            ...data.bio.expertise,
+                            tr: [...data.bio.expertise.tr, "Eklendi"],
+                          },
                         },
                       })
                     }
@@ -846,7 +901,7 @@ const Edit = () => {
               <div className="flex">
                 <label className="w-1/5 text-lg opacity-50">Services</label>
                 <div className="w-4/5 ml-10 flex flex-col">
-                  {data.bio.services.map((other, index) => (
+                  {data.bio.services.tr.map((other, index) => (
                     <div key={index} className="flex">
                       <input
                         value={other}
@@ -855,11 +910,14 @@ const Edit = () => {
                             ...data,
                             bio: {
                               ...data.bio,
-                              services: [
-                                ...data.bio.services.slice(0, index),
-                                e.target.value,
-                                ...data.bio.services.slice(index + 1),
-                              ],
+                              services: {
+                                ...data.bio.services,
+                                tr: [
+                                  ...data.bio.services.tr.slice(0, index),
+                                  e.target.value,
+                                  ...data.bio.services.tr.slice(index + 1),
+                                ],
+                              },
                             },
                           });
                         }}
@@ -872,9 +930,12 @@ const Edit = () => {
                             ...data,
                             bio: {
                               ...data.bio,
-                              services: data.bio.services.filter(
-                                (value, i) => index !== i
-                              ),
+                              services: {
+                                ...data.bio.services,
+                                tr: data.bio.services.tr.filter(
+                                  (value, i) => index !== i
+                                ),
+                              },
                             },
                           })
                         }
@@ -889,7 +950,10 @@ const Edit = () => {
                         ...data,
                         bio: {
                           ...data.bio,
-                          services: [...data.bio.services, "Added"],
+                          services: {
+                            ...data.bio.services,
+                            tr: [...data.bio.services.tr, "Eklendi"],
+                          },
                         },
                       })
                     }

@@ -1,8 +1,11 @@
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import data from "../../data/portfolio.json";
+import { useLanguage } from "../../context/LanguageContext";
 
 const ContactModal = ({ isOpen, onClose }) => {
+  const { t } = useLanguage();
+
   useEffect(() => {
     if (!isOpen) return;
     const handleKey = (e) => { if (e.key === "Escape") onClose(); };
@@ -34,26 +37,26 @@ const ContactModal = ({ isOpen, onClose }) => {
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
-        aria-label="Get in Touch"
+        aria-label={t("common.getInTouch")}
       >
         <button
           onClick={onClose}
           className="absolute top-4 right-4 opacity-40 hover:opacity-100 text-2xl leading-none transition-opacity"
-          aria-label="Close"
+          aria-label={t("common.close")}
         >
           ✕
         </button>
 
-        <h2 className="text-2xl font-medium mb-2">Get in Touch</h2>
+        <h2 className="text-2xl font-medium mb-2">{t("common.getInTouch")}</h2>
         <p className="opacity-50 text-sm mb-6">
-          {"Send an email and I'll get back to you as soon as possible."}
+          {t("contactModal.sendEmailDescription")}
         </p>
 
         <a
           href={emailHref}
           className="block w-full text-center py-3 px-6 bg-black dark:bg-white text-white dark:text-black rounded-full font-medium hover:opacity-80 transition-opacity"
         >
-          Send Email
+          {t("contactModal.sendEmail")}
         </a>
 
         {/* Sosyal linkler */}

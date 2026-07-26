@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import SplashScreen from "../components/SplashScreen";
+import { LanguageProvider } from "../context/LanguageContext";
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -21,20 +22,22 @@ const App = ({ Component, pageProps }) => {
   }, []);
 
   return (
-    <ThemeProvider>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
-      </Head>
+    <LanguageProvider>
+      <ThemeProvider>
+        <Head>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <link rel="icon" href="/images/logo.svg" type="image/svg+xml" />
+        </Head>
 
-      {showSplash && (
-        <SplashScreen onDone={() => setShowSplash(false)} />
-      )}
+        {showSplash && (
+          <SplashScreen onDone={() => setShowSplash(false)} />
+        )}
 
-      <div key={router.asPath} className="page-enter">
-        <Component {...pageProps} />
-      </div>
-    </ThemeProvider>
+        <div key={router.asPath} className="page-enter">
+          <Component {...pageProps} />
+        </div>
+      </ThemeProvider>
+    </LanguageProvider>
   );
 };
 

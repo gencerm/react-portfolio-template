@@ -10,11 +10,14 @@ import Head from "next/head";
 import Button from "../components/Button";
 import Link from "next/link";
 import Cursor from "../components/Cursor";
+import { useLanguage } from "../context/LanguageContext";
 
 // Local Data
 import data from "../data/portfolio.json";
 
 export default function Home() {
+  const { lang, t } = useLanguage();
+
   // Ref
   const workRef = useRef();
   const aboutRef = useRef();
@@ -71,32 +74,32 @@ export default function Home() {
               ref={textOne}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-4/5 mob:w-full laptop:w-4/5"
             >
-              {data.headerTaglineOne}
+              {data.headerTaglineOne[lang]}
             </h1>
             <h1
               ref={textTwo}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
             >
-              {data.headerTaglineTwo}
+              {data.headerTaglineTwo[lang]}
             </h1>
             <h1
               ref={textThree}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
             >
-              {data.headerTaglineThree}
+              {data.headerTaglineThree[lang]}
             </h1>
             <h1
               ref={textFour}
               className="text-3xl tablet:text-6xl laptop:text-6xl laptopl:text-8xl p-1 tablet:p-2 text-bold w-full laptop:w-4/5"
             >
-              {data.headerTaglineFour}
+              {data.headerTaglineFour[lang]}
             </h1>
           </div>
 
           <Socials className="mt-2 laptop:mt-5" />
         </div>
         <div id="work" className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
-          <h1 className="text-2xl text-bold">Work.</h1>
+          <h1 className="text-2xl text-bold">{t("home.workHeading")}</h1>
 
           {/* 4 kategori kartı — her biri kendi sayfasına link veriyor */}
           <div className="mt-5 laptop:mt-10 grid grid-cols-2 laptop:grid-cols-4 gap-4">
@@ -104,7 +107,7 @@ export default function Home() {
               <CategoryCard
                 key={cat.slug}
                 slug={cat.slug}
-                title={cat.title}
+                title={cat.title[lang]}
                 // Bu kategoriyle eşleşen projeleri filtrele
                 projects={data.projects.filter((p) => p.category === cat.slug)}
               />
@@ -113,13 +116,13 @@ export default function Home() {
         </div>
 
         <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
-          <h1 className="tablet:m-10 text-2xl text-bold">Services.</h1>
+          <h1 className="tablet:m-10 text-2xl text-bold">{t("home.servicesHeading")}</h1>
           <div className="mt-5 tablet:m-10 grid grid-cols-1 laptop:grid-cols-2 gap-6">
             {data.services.map((service, index) => (
               <ServiceCard
                 key={index}
-                name={service.title}
-                description={service.description}
+                name={service.title[lang]}
+                description={service.description[lang]}
               />
             ))}
           </div>
@@ -133,9 +136,9 @@ export default function Home() {
           </div>
         )}
         <div id="about" className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
-          <h1 className="tablet:m-10 text-2xl text-bold">About.</h1>
-          <p className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
-            {data.aboutpara}
+          <h1 className="tablet:m-10 text-2xl text-bold">{t("home.aboutHeading")}</h1>
+          <p className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5 whitespace-pre-line">
+            {data.aboutpara[lang]}
           </p>
         </div>
         <Footer />

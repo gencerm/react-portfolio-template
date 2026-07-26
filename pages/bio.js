@@ -6,6 +6,7 @@ import ProjectResume from "../components/ProjectResume";
 import Socials from "../components/Socials";
 import Button from "../components/Button";
 import { useTheme } from "next-themes";
+import { useLanguage } from "../context/LanguageContext";
 // Data
 import data from "../data/portfolio.json";
 const { name, showBio, bio } = data;
@@ -13,6 +14,7 @@ const { name, showBio, bio } = data;
 const Bio = () => {
   const router = useRouter();
   const theme = useTheme();
+  const { lang, t } = useLanguage();
   const [mount, setMount] = useState(false);
 
   useEffect(() => {
@@ -45,16 +47,16 @@ const Bio = () => {
               } max-w-4xl p-20 mob:p-5 desktop:p-20 rounded-lg shadow-sm`}
             >
               <h1 className="text-3xl font-bold">{name}</h1>
-              <h2 className="text-xl mt-5">{bio.tagline}</h2>
+              <h2 className="text-xl mt-5">{bio.tagline[lang]}</h2>
               <h2 className="w-4/5 text-xl mt-5 opacity-50">
-                {bio.description}
+                {bio.description[lang]}
               </h2>
               <div className="mt-2">
                 <Socials />
               </div>
               {bio.showExperiences && (
               <div className="mt-5">
-                <h1 className="text-2xl font-bold">Experience</h1>
+                <h1 className="text-2xl font-bold">{t("bio.experienceHeading")}</h1>
 
                 {bio.experiences.map(
                   ({ id, dates, type, position, bullets }) => (
@@ -70,23 +72,23 @@ const Bio = () => {
               </div>
               )}
               <div className="mt-5">
-                <h1 className="text-2xl font-bold">Education</h1>
-                <div className="mt-2">
-                  <h2 className="text-lg">{bio.education.universityName}</h2>
-                  <h3 className="text-sm opacity-75">
-                    {bio.education.universityDate}
-                  </h3>
-                  <p className="text-sm mt-2 opacity-50">
-                    {bio.education.universityPara}
-                  </p>
-                </div>
+                <h1 className="text-2xl font-bold">{t("bio.educationHeading")}</h1>
+                {bio.education.map((edu) => (
+                  <div className="mt-2" key={edu.id}>
+                    <h2 className="text-lg">{edu.universityName[lang]}</h2>
+                    <h3 className="text-sm opacity-75">{edu.universityDate}</h3>
+                    <p className="text-sm mt-2 opacity-50">
+                      {edu.universityPara[lang]}
+                    </p>
+                  </div>
+                ))}
               </div>
               <div className="mt-5">
-                <h1 className="text-2xl font-bold">Skills</h1>
+                <h1 className="text-2xl font-bold">{t("bio.skillsHeading")}</h1>
                 <div className="flex mob:flex-col desktop:flex-row justify-between">
                   {bio.tools && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Tools</h2>
+                      <h2 className="text-lg">{t("bio.toolsHeading")}</h2>
                       <ul className="list-disc">
                         {bio.tools.map((tool, index) => (
                           <li key={index} className="ml-5 py-2">
@@ -99,9 +101,9 @@ const Bio = () => {
 
                   {bio.expertise && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Expertise</h2>
+                      <h2 className="text-lg">{t("bio.expertiseHeading")}</h2>
                       <ul className="list-disc">
-                        {bio.expertise.map((item, index) => (
+                        {bio.expertise[lang].map((item, index) => (
                           <li key={index} className="ml-5 py-2">
                             {item}
                           </li>
@@ -112,9 +114,9 @@ const Bio = () => {
 
                   {bio.services && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Services</h2>
+                      <h2 className="text-lg">{t("bio.servicesHeading")}</h2>
                       <ul className="list-disc">
-                        {bio.services.map((service, index) => (
+                        {bio.services[lang].map((service, index) => (
                           <li key={index} className="ml-5 py-2">
                             {service}
                           </li>
