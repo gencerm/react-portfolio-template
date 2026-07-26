@@ -116,15 +116,15 @@ const Edit = () => {
     setData({ ...data, socials: copySocials });
   };
 
-  // Resume
+  // Bio
 
   const handleAddExperiences = () => {
     setData({
       ...data,
-      resume: {
-        ...data.resume,
+      bio: {
+        ...data.bio,
         experiences: [
-          ...data.resume.experiences,
+          ...data.bio.experiences,
           {
             id: uuidv4(),
             dates: "Enter Dates",
@@ -138,11 +138,11 @@ const Edit = () => {
   };
 
   const handleEditExperiences = (index, editExperience) => {
-    let copyExperiences = data.resume.experiences;
+    let copyExperiences = data.bio.experiences;
     copyExperiences[index] = { ...editExperience };
     setData({
       ...data,
-      resume: { ...data.resume, experiences: copyExperiences },
+      bio: { ...data.bio, experiences: copyExperiences },
     });
   };
 
@@ -193,10 +193,10 @@ const Edit = () => {
               Social
             </Button>
             <Button
-              onClick={() => setCurrentTabs("RESUME")}
-              type={currentTabs === "RESUME" && "primary"}
+              onClick={() => setCurrentTabs("BIO")}
+              type={currentTabs === "BIO" && "primary"}
             >
-              Resume
+              Bio
             </Button>
           </div>
         </div>
@@ -303,18 +303,18 @@ const Edit = () => {
               </div>
             </div>
             <div className="mt-5 flex items-center">
-              <label className="w-1/5 text-lg opacity-50">Show Resume</label>
+              <label className="w-1/5 text-lg opacity-50">Show Bio</label>
               <div className="w-4/5 ml-10 flex items-center">
                 <Button
-                  onClick={() => setData({ ...data, showResume: true })}
-                  type={data.showResume && "primary"}
+                  onClick={() => setData({ ...data, showBio: true })}
+                  type={data.showBio && "primary"}
                 >
                   Yes
                 </Button>
                 <Button
-                  onClick={() => setData({ ...data, showResume: false })}
+                  onClick={() => setData({ ...data, showBio: false })}
                   classes={
-                    !data.showResume && "bg-red-500 text-white hover:bg-red-600"
+                    !data.showBio && "bg-red-500 text-white hover:bg-red-600"
                   }
                 >
                   No
@@ -548,17 +548,17 @@ const Edit = () => {
             </div>
           </div>
         )}
-        {currentTabs === "RESUME" && (
+        {currentTabs === "BIO" && (
           <div className="mt-10">
             <h1>Main</h1>
             <div className="mt-5 flex items-center">
               <label className="w-1/5 text-sx opacity-50">Tagline</label>
               <input
-                value={data.resume.tagline}
+                value={data.bio.tagline}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    resume: { ...data.resume, tagline: e.target.value },
+                    bio: { ...data.bio, tagline: e.target.value },
                   })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -568,11 +568,11 @@ const Edit = () => {
             <div className="flex items-center mt-5">
               <label className="w-1/5 text-lg opacity-50">Description</label>
               <textarea
-                value={data.resume.description}
+                value={data.bio.description}
                 onChange={(e) =>
                   setData({
                     ...data,
-                    resume: { ...data.resume, description: e.target.value },
+                    bio: { ...data.bio, description: e.target.value },
                   })
                 }
                 className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
@@ -582,7 +582,7 @@ const Edit = () => {
 
             <h1>Experiences</h1>
             <div className="mt-10">
-              {data.resume.experiences.map((experiences, index) => (
+              {data.bio.experiences.map((experiences, index) => (
                 <div className="mt-5" key={experiences.id}>
                   <div className="flex items-center justify-between">
                     <h1 className="text-2xl">{experiences.position}</h1>
@@ -667,14 +667,14 @@ const Edit = () => {
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Name</label>
                 <input
-                  value={data.resume.education.universityName}
+                  value={data.bio.education.universityName}
                   onChange={(e) =>
                     setData({
                       ...data,
-                      resume: {
-                        ...data.resume,
+                      bio: {
+                        ...data.bio,
                         education: {
-                          ...data.resume.education,
+                          ...data.bio.education,
                           universityName: e.target.value,
                         },
                       },
@@ -687,14 +687,14 @@ const Edit = () => {
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Dates</label>
                 <input
-                  value={data.resume.education.universityDate}
+                  value={data.bio.education.universityDate}
                   onChange={(e) =>
                     setData({
                       ...data,
-                      resume: {
-                        ...data.resume,
+                      bio: {
+                        ...data.bio,
                         education: {
-                          ...data.resume.education,
+                          ...data.bio.education,
                           universityDate: e.target.value,
                         },
                       },
@@ -707,14 +707,14 @@ const Edit = () => {
               <div className="flex items-center mt-5">
                 <label className="w-1/5 text-lg opacity-50">Detail</label>
                 <input
-                  value={data.resume.education.universityPara}
+                  value={data.bio.education.universityPara}
                   onChange={(e) =>
                     setData({
                       ...data,
-                      resume: {
-                        ...data.resume,
+                      bio: {
+                        ...data.bio,
                         education: {
-                          ...data.resume.education,
+                          ...data.bio.education,
                           universityPara: e.target.value,
                         },
                       },
@@ -728,21 +728,21 @@ const Edit = () => {
             <hr className="my-10"></hr>
             <div className="mt-10">
               <div className="flex">
-                <label className="w-1/5 text-lg opacity-50">Languages</label>
+                <label className="w-1/5 text-lg opacity-50">Tools</label>
                 <div className="w-4/5 ml-10 flex flex-col">
-                  {data.resume.languages.map((language, index) => (
+                  {data.bio.tools.map((language, index) => (
                     <div key={index} className="flex">
                       <input
                         value={language}
                         onChange={(e) => {
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              languages: [
-                                ...data.resume.languages.slice(0, index),
+                            bio: {
+                              ...data.bio,
+                              tools: [
+                                ...data.bio.tools.slice(0, index),
                                 e.target.value,
-                                ...data.resume.languages.slice(index + 1),
+                                ...data.bio.tools.slice(index + 1),
                               ],
                             },
                           });
@@ -754,9 +754,9 @@ const Edit = () => {
                         onClick={() =>
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              languages: data.resume.languages.filter(
+                            bio: {
+                              ...data.bio,
+                              tools: data.bio.tools.filter(
                                 (value, i) => index !== i
                               ),
                             },
@@ -773,9 +773,9 @@ const Edit = () => {
                     onClick={() =>
                       setData({
                         ...data,
-                        resume: {
-                          ...data.resume,
-                          languages: [...data.resume.languages, "Added"],
+                        bio: {
+                          ...data.bio,
+                          tools: [...data.bio.tools, "Added"],
                         },
                       })
                     }
@@ -786,21 +786,21 @@ const Edit = () => {
               </div>
               <hr className="my-10"></hr>
               <div className="flex">
-                <label className="w-1/5 text-lg opacity-50">Frameworks</label>
+                <label className="w-1/5 text-lg opacity-50">Expertise</label>
                 <div className="w-4/5 ml-10 flex flex-col">
-                  {data.resume.frameworks.map((framework, index) => (
+                  {data.bio.expertise.map((framework, index) => (
                     <div key={index} className="flex">
                       <input
                         value={framework}
                         onChange={(e) => {
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              frameworks: [
-                                ...data.resume.frameworks.slice(0, index),
+                            bio: {
+                              ...data.bio,
+                              expertise: [
+                                ...data.bio.expertise.slice(0, index),
                                 e.target.value,
-                                ...data.resume.frameworks.slice(index + 1),
+                                ...data.bio.expertise.slice(index + 1),
                               ],
                             },
                           });
@@ -812,9 +812,9 @@ const Edit = () => {
                         onClick={() =>
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              frameworks: data.resume.frameworks.filter(
+                            bio: {
+                              ...data.bio,
+                              expertise: data.bio.expertise.filter(
                                 (value, i) => index !== i
                               ),
                             },
@@ -829,9 +829,9 @@ const Edit = () => {
                     onClick={() =>
                       setData({
                         ...data,
-                        resume: {
-                          ...data.resume,
-                          frameworks: [...data.resume.frameworks, "Added"],
+                        bio: {
+                          ...data.bio,
+                          expertise: [...data.bio.expertise, "Added"],
                         },
                       })
                     }
@@ -844,21 +844,21 @@ const Edit = () => {
               </div>
               <hr className="my-10"></hr>
               <div className="flex">
-                <label className="w-1/5 text-lg opacity-50">Others</label>
+                <label className="w-1/5 text-lg opacity-50">Services</label>
                 <div className="w-4/5 ml-10 flex flex-col">
-                  {data.resume.others.map((other, index) => (
+                  {data.bio.services.map((other, index) => (
                     <div key={index} className="flex">
                       <input
                         value={other}
                         onChange={(e) => {
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              others: [
-                                ...data.resume.others.slice(0, index),
+                            bio: {
+                              ...data.bio,
+                              services: [
+                                ...data.bio.services.slice(0, index),
                                 e.target.value,
-                                ...data.resume.others.slice(index + 1),
+                                ...data.bio.services.slice(index + 1),
                               ],
                             },
                           });
@@ -870,9 +870,9 @@ const Edit = () => {
                         onClick={() =>
                           setData({
                             ...data,
-                            resume: {
-                              ...data.resume,
-                              others: data.resume.others.filter(
+                            bio: {
+                              ...data.bio,
+                              services: data.bio.services.filter(
                                 (value, i) => index !== i
                               ),
                             },
@@ -887,9 +887,9 @@ const Edit = () => {
                     onClick={() =>
                       setData({
                         ...data,
-                        resume: {
-                          ...data.resume,
-                          others: [...data.resume.others, "Added"],
+                        bio: {
+                          ...data.bio,
+                          services: [...data.bio.services, "Added"],
                         },
                       })
                     }

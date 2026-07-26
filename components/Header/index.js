@@ -11,7 +11,7 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const { name, showBlog, showResume } = data;
+  const { name, showBlog, showBio } = data;
 
   useEffect(() => {
     setMounted(true);
@@ -89,9 +89,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     {showBlog && (
                       <Button onClick={() => router.push("/blog")}>Blog</Button>
                     )}
-                    {showResume && (
-                      <Button onClick={() => router.push("/resume")}>
-                        Resume
+                    {showBio && (
+                      <Button onClick={() => router.push("/bio")}>
+                        Bio
                       </Button>
                     )}
                     <Button
@@ -106,9 +106,9 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
                     {showBlog && (
                       <Button onClick={() => router.push("/blog")}>Blog</Button>
                     )}
-                    {showResume && (
-                      <Button onClick={() => router.push("/resume")}>
-                        Resume
+                    {showBio && (
+                      <Button onClick={() => router.push("/bio")}>
+                        Bio
                       </Button>
                     )}
                     <Button
@@ -147,12 +147,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
-            {showResume && (
+            {showBio && (
               <Button
-                onClick={() => router.push("/resume")}
+                onClick={() => router.push("/bio")}
                 classes="first:ml-1"
               >
-                Resume
+                Bio
               </Button>
             )}
             <Button onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}>
@@ -175,12 +175,12 @@ const Header = ({ handleWorkScroll, handleAboutScroll, isBlog }) => {
             {showBlog && (
               <Button onClick={() => router.push("/blog")}>Blog</Button>
             )}
-            {showResume && (
+            {showBio && (
               <Button
-                onClick={() => router.push("/resume")}
+                onClick={() => router.push("/bio")}
                 classes="first:ml-1"
               >
-                Resume
+                Bio
               </Button>
             )}
             <Button onClick={() => window.open("mailto:esrakarademirgencer@gmail.com")}>

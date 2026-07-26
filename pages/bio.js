@@ -8,16 +8,16 @@ import Button from "../components/Button";
 import { useTheme } from "next-themes";
 // Data
 import data from "../data/portfolio.json";
-const { name, showResume, resume } = data;
+const { name, showBio, bio } = data;
 
-const Resume = () => {
+const Bio = () => {
   const router = useRouter();
   const theme = useTheme();
   const [mount, setMount] = useState(false);
 
   useEffect(() => {
     setMount(true);
-    if (!showResume) {
+    if (!showBio) {
       router.push("/");
     }
   }, []);
@@ -26,7 +26,7 @@ const Resume = () => {
       {process.env.NODE_ENV === "development" && (
         <div className="fixed bottom-6 right-6">
           <Button onClick={() => router.push("/edit")} type={"primary"}>
-            Edit Resume
+            Edit Bio
           </Button>
         </div>
       )}
@@ -45,18 +45,18 @@ const Resume = () => {
               } max-w-4xl p-20 mob:p-5 desktop:p-20 rounded-lg shadow-sm`}
             >
               <h1 className="text-3xl font-bold">{name}</h1>
-              <h2 className="text-xl mt-5">{resume.tagline}</h2>
+              <h2 className="text-xl mt-5">{bio.tagline}</h2>
               <h2 className="w-4/5 text-xl mt-5 opacity-50">
-                {resume.description}
+                {bio.description}
               </h2>
               <div className="mt-2">
                 <Socials />
               </div>
-              {resume.showExperiences && (
+              {bio.showExperiences && (
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Experience</h1>
 
-                {resume.experiences.map(
+                {bio.experiences.map(
                   ({ id, dates, type, position, bullets }) => (
                     <ProjectResume
                       key={id}
@@ -72,51 +72,51 @@ const Resume = () => {
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Education</h1>
                 <div className="mt-2">
-                  <h2 className="text-lg">{resume.education.universityName}</h2>
+                  <h2 className="text-lg">{bio.education.universityName}</h2>
                   <h3 className="text-sm opacity-75">
-                    {resume.education.universityDate}
+                    {bio.education.universityDate}
                   </h3>
                   <p className="text-sm mt-2 opacity-50">
-                    {resume.education.universityPara}
+                    {bio.education.universityPara}
                   </p>
                 </div>
               </div>
               <div className="mt-5">
                 <h1 className="text-2xl font-bold">Skills</h1>
                 <div className="flex mob:flex-col desktop:flex-row justify-between">
-                  {resume.languages && (
+                  {bio.tools && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Languages</h2>
+                      <h2 className="text-lg">Tools</h2>
                       <ul className="list-disc">
-                        {resume.languages.map((language, index) => (
+                        {bio.tools.map((tool, index) => (
                           <li key={index} className="ml-5 py-2">
-                            {language}
+                            {tool}
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
 
-                  {resume.frameworks && (
+                  {bio.expertise && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Frameworks</h2>
+                      <h2 className="text-lg">Expertise</h2>
                       <ul className="list-disc">
-                        {resume.frameworks.map((framework, index) => (
+                        {bio.expertise.map((item, index) => (
                           <li key={index} className="ml-5 py-2">
-                            {framework}
+                            {item}
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
 
-                  {resume.others && (
+                  {bio.services && (
                     <div className="mt-2 mob:mt-5">
-                      <h2 className="text-lg">Others</h2>
+                      <h2 className="text-lg">Services</h2>
                       <ul className="list-disc">
-                        {resume.others.map((other, index) => (
+                        {bio.services.map((service, index) => (
                           <li key={index} className="ml-5 py-2">
-                            {other}
+                            {service}
                           </li>
                         ))}
                       </ul>
@@ -132,4 +132,4 @@ const Resume = () => {
   );
 };
 
-export default Resume;
+export default Bio;
