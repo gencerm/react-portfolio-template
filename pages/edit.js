@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
@@ -9,10 +10,20 @@ import yourData from "../data/portfolio.json";
 import Cursor from "../components/Cursor";
 
 const Edit = () => {
+  const router = useRouter();
   // states
   const [data, setData] = useState(yourData);
   const [currentTabs, setCurrentTabs] = useState("HEADER");
   const { theme } = useTheme();
+
+  // Bu panel yalnızca dev ortamında çalışır (Save gerçek dosyayı yalnızca
+  // dev'de günceller) — production'da paneli herkese açık bırakmamak için
+  // ana sayfaya yönlendiriyoruz.
+  useEffect(() => {
+    if (process.env.NODE_ENV !== "development") {
+      router.push("/");
+    }
+  }, []);
 
   const saveData = () => {
     if (process.env.NODE_ENV === "development") {
@@ -177,6 +188,12 @@ const Edit = () => {
     copyEducation = copyEducation.filter((edu) => edu.id !== id);
     setData({ ...data, bio: { ...data.bio, education: copyEducation } });
   };
+
+  // NODE_ENV build zamanında sabitlenir, bu yüzden senkron kontrol edilebilir —
+  // panel SSR'da bile hiç render edilmeden production'da boş döner.
+  if (process.env.NODE_ENV !== "development") {
+    return null;
+  }
 
   return (
     <div className={`container mx-auto ${data.showCursor && "cursor-none"}`}>
