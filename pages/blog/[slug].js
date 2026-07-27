@@ -14,15 +14,23 @@ import data from "../../data/portfolio.json";
 
 const BlogPost = ({ post }) => {
   const [showEditor, setShowEditor] = useState(false);
+  // blog kapalıyken (data.showBlog: false) tekil post sayfaları da URL
+  // bilinse bile içerik göstermemeli — pages/blog/index.js'deki aynı desen
+  const showBlog = useRef(data.showBlog);
   const textOne = useRef();
   const textTwo = useRef();
   const router = useRouter();
 
   useIsomorphicLayoutEffect(() => {
-    stagger([textOne.current, textTwo.current], { y: 30 }, { y: 0 });
+    if (showBlog.current) {
+      stagger([textOne.current, textTwo.current], { y: 30 }, { y: 0 });
+    } else {
+      router.push("/");
+    }
   }, []);
 
   return (
+    showBlog.current && (
     <>
       <Head>
         <title>{"Blog - " + post.title}</title>
@@ -74,6 +82,7 @@ const BlogPost = ({ post }) => {
         />
       )}
     </>
+    )
   );
 };
 
